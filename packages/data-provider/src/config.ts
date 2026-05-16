@@ -2097,6 +2097,10 @@ export enum SettingsTabValues {
    * Tab for Personalization Settings
    */
   PERSONALIZATION = 'personalization',
+  /**
+   * Tab for Miron MCP Server Manager
+   */
+  MCP = 'mcp',
 }
 
 export enum STTProviders {

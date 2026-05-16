@@ -138,6 +138,14 @@ function ExpandedPanel({
 
   return (
     <div className="flex h-full flex-shrink-0 flex-col gap-2 border-r border-border-light bg-surface-primary-alt px-2 py-2">
+      <div className="flex justify-center pb-1 pt-1">
+        <img
+          src="/assets/logo.svg"
+          alt="Miron"
+          className="h-8 w-8 select-none"
+          draggable={false}
+        />
+      </div>
       <TooltipAnchor
         side="right"
         description={localize(toggleLabel)}

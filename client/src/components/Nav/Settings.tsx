@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { SettingsTabValues } from 'librechat-data-provider';
-import { MessageSquare, Command, DollarSign } from 'lucide-react';
+import { MessageSquare, Command, DollarSign, Plug } from 'lucide-react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import {
   GearIcon,
@@ -22,6 +22,7 @@ import {
   Balance,
   Account,
 } from './SettingsTabs';
+import MCPServerManager from '~/components/Miron/MCPServerManager';
 import usePersonalizationAccess from '~/hooks/usePersonalizationAccess';
 import { useLocalize, TranslationKeys } from '~/hooks';
 import { useGetStartupConfig } from '~/data-provider';
@@ -40,6 +41,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
       SettingsTabValues.GENERAL,
       SettingsTabValues.CHAT,
       SettingsTabValues.COMMANDS,
+      SettingsTabValues.MCP,
       SettingsTabValues.SPEECH,
       ...(hasAnyPersonalizationFeature ? [SettingsTabValues.PERSONALIZATION] : []),
       SettingsTabValues.DATA,
@@ -87,6 +89,11 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
       value: SettingsTabValues.COMMANDS,
       icon: <Command className="icon-sm" aria-hidden="true" />,
       label: 'com_nav_commands',
+    },
+    {
+      value: SettingsTabValues.MCP,
+      icon: <Plug className="icon-sm" aria-hidden="true" />,
+      label: 'com_miron_mcp_tab',
     },
     {
       value: SettingsTabValues.SPEECH,
@@ -228,6 +235,9 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                     </Tabs.Content>
                     <Tabs.Content value={SettingsTabValues.COMMANDS} tabIndex={-1}>
                       <Commands />
+                    </Tabs.Content>
+                    <Tabs.Content value={SettingsTabValues.MCP} tabIndex={-1}>
+                      <MCPServerManager />
                     </Tabs.Content>
                     <Tabs.Content value={SettingsTabValues.SPEECH} tabIndex={-1}>
                       <Speech />
