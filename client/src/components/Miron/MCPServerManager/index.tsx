@@ -1,9 +1,10 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Plus, Server } from 'lucide-react';
 import { Button } from '@librechat/client';
 import { Permissions, PermissionTypes } from 'librechat-data-provider';
 import { useLocalize, useHasAccess, useMCPConnectionStatus } from '~/hooks';
 import { useMCPServersQuery } from '~/data-provider';
+import MCPServerDialog from '~/components/SidePanel/MCPBuilder/MCPServerDialog';
 import ServerCard, { deriveConnectionState } from './ServerCard';
 import type { ServerCardProps } from './ServerCard';
 
@@ -29,6 +30,11 @@ export default function MCPServerManager() {
     permissionType: PermissionTypes.MCP_SERVERS,
     permission: Permissions.USE,
   });
+  const canCreateMcp = useHasAccess({
+    permissionType: PermissionTypes.MCP_SERVERS,
+    permission: Permissions.CREATE,
+  });
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
 
   const { data: loadedServers, isLoading } = useMCPServersQuery({ enabled: canUseMcp });
   const { connectionStatus } = useMCPConnectionStatus({ enabled: canUseMcp });
@@ -73,7 +79,8 @@ export default function MCPServerManager() {
         <Button
           variant="default"
           size="sm"
-          disabled
+          disabled={!canCreateMcp}
+          onClick={() => setIsCreateOpen(true)}
           aria-label={localize('com_miron_mcp_add_button')}
         >
           <Plus className="h-4 w-4" aria-hidden="true" />
@@ -100,6 +107,8 @@ export default function MCPServerManager() {
       )}
 
       <p className="text-xs text-text-tertiary">{localize('com_miron_mcp_footer_hint')}</p>
+
+      <MCPServerDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} />
     </div>
   );
 }
