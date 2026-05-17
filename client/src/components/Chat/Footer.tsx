@@ -24,14 +24,18 @@ function Footer({ className }: { className?: string }) {
     </a>
   );
 
-  const mainContentParts = (
-    typeof config?.customFooter === 'string'
-      ? config.customFooter
-      : '[LibreChat ' +
-        Constants.VERSION +
-        '](https://librechat.ai) - ' +
-        localize('com_ui_latest_footer')
-  ).split('|');
+  // Miron: an empty customFooter hides the footer entirely (attribution lives in About modal instead).
+  const customFooterIsEmpty =
+    typeof config?.customFooter === 'string' && config.customFooter.trim() === '';
+  const mainContentParts = customFooterIsEmpty
+    ? []
+    : (typeof config?.customFooter === 'string'
+        ? config.customFooter
+        : '[LibreChat ' +
+          Constants.VERSION +
+          '](https://librechat.ai) - ' +
+          localize('com_ui_latest_footer')
+      ).split('|');
 
   useEffect(() => {
     if (config?.analyticsGtmId != null && typeof window.google_tag_manager === 'undefined') {
@@ -70,6 +74,11 @@ function Footer({ className }: { className?: string }) {
   const footerElements = [...mainContentRender, privacyPolicyRender, termsOfServiceRender].filter(
     Boolean,
   );
+
+  // Miron: don't render the footer wrapper at all when there's nothing to show.
+  if (footerElements.length === 0) {
+    return null;
+  }
 
   return (
     <div className="relative w-full">
