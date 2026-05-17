@@ -75,7 +75,7 @@
   "com_agents_mcp_description_placeholder": "Объясните, что он делает, в нескольких словах.",
   "com_agents_mcp_icon_size": "Минимальный размер 128 x 128 px",
   "com_agents_mcp_name_placeholder": "Пользовательский инструмент",
-  "com_agents_mcp_trust_subtext": "Пользовательские коннекторы не проверяются LibreChat.",
+  "com_agents_mcp_trust_subtext": "Пользовательские коннекторы не проверяются Miron.",
   "com_agents_missing_name": "Пожалуйста введите имя перед созданием агента",
   "com_agents_missing_provider_model": "Выберите провайдера и модель перед созданием агента",
   "com_agents_name_placeholder": "Необязательно: имя агента",
@@ -1329,5 +1329,18 @@
   "com_ui_zoom_in": "Увеличить",
   "com_ui_zoom_level": "Масштаб",
   "com_ui_zoom_out": "Уменьшить",
-  "com_user_message": "Вы"
+  "com_user_message": "Вы",
+  "com_ui_mcp_transport": "Транспорт",
+  "com_ui_mcp_type_streamable_http": "Streamable HTTPS",
+  "com_ui_no_auth": "Нет (автоопределение)",
+  "com_ui_mcp_server_created": "MCP-сервер успешно создан",
+  "com_ui_mcp_server_connection_failed": "Не удалось подключиться к MCP-серверу. Проверьте URL, тип сервера и настройки аутентификации, затем повторите попытку. Также убедитесь, что URL доступен.",
+  "com_ui_delete_mcp_server": "Удалить MCP-сервер?",
+  "com_ui_mcp_server_url_placeholder": "https://mcp.example.com",
+  "com_ui_redirect_uri": "URI перенаправления",
+  "com_ui_invalid_url": "Некорректный URL",
+  "com_ui_mcp_invalid_url": "Некорректный URL для MCP-сервера",
+  "com_ui_mcp_domain_not_allowed": "Домен не разрешён администратором",
+  "com_ui_mcp_title_invalid": "Некорректное название",
+  "com_ui_user_provides_key": "Пользователь предоставит ключ"
 }

@@ -19,6 +19,8 @@ export interface ServerCardProps {
   transport?: string;
   toolsCount?: number;
   status?: ServerCardConnectionState;
+  isEditable?: boolean;
+  onEdit?: () => void;
 }
 
 export function deriveConnectionState(status?: MCPServerStatus): ServerCardConnectionState {
@@ -64,6 +66,8 @@ export default function ServerCard({
   transport,
   toolsCount,
   status = 'unknown',
+  isEditable = false,
+  onEdit,
 }: ServerCardProps) {
   const localize = useLocalize();
   const style = statusStyles[status];
@@ -111,7 +115,8 @@ export default function ServerCard({
         <Button
           variant="outline"
           size="sm"
-          disabled
+          disabled={!isEditable || !onEdit}
+          onClick={onEdit}
           aria-label={localize('com_miron_mcp_details')}
         >
           {localize('com_miron_mcp_details')}

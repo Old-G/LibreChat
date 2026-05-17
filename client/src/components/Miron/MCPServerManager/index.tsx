@@ -1,28 +1,15 @@
 import { useMemo, useState } from 'react';
 import { Plus, Server } from 'lucide-react';
 import { Button } from '@librechat/client';
-import { Permissions, PermissionTypes } from 'librechat-data-provider';
+import { Permissions, PermissionTypes, ResourceType } from 'librechat-data-provider';
+import { useGetAllEffectivePermissionsQuery } from 'librechat-data-provider/react-query';
 import { useLocalize, useHasAccess, useMCPConnectionStatus } from '~/hooks';
+import type { MCPServerDefinition } from '~/hooks';
 import { useMCPServersQuery } from '~/data-provider';
 import MCPServerDialog from '~/components/SidePanel/MCPBuilder/MCPServerDialog';
 import ServerCard, { deriveConnectionState } from './ServerCard';
-import type { ServerCardProps } from './ServerCard';
 
-const FALLBACK_SERVERS: ServerCardProps[] = [
-  {
-    serverName: 'bitrix24',
-    displayName: 'Bitrix24',
-    description: 'Корпоративный CRM и Project Management',
-    transport: 'stdio',
-    toolsCount: 50,
-    status: 'connected',
-  },
-];
-
-function readTransport(config: { type?: string } | undefined): string | undefined {
-  if (!config?.type) return undefined;
-  return config.type;
-}
+const FALLBACK_SERVER_NAME = 'bitrix24';
 
 export default function MCPServerManager() {
   const localize = useLocalize();
@@ -34,31 +21,36 @@ export default function MCPServerManager() {
     permissionType: PermissionTypes.MCP_SERVERS,
     permission: Permissions.CREATE,
   });
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingServer, setEditingServer] = useState<MCPServerDefinition | null>(null);
 
   const { data: loadedServers, isLoading } = useMCPServersQuery({ enabled: canUseMcp });
   const { connectionStatus } = useMCPConnectionStatus({ enabled: canUseMcp });
+  const { data: permissionsMap } = useGetAllEffectivePermissionsQuery(ResourceType.MCPSERVER, {
+    enabled: canUseMcp,
+  });
 
-  const servers = useMemo<ServerCardProps[]>(() => {
-    if (!loadedServers || Object.keys(loadedServers).length === 0) {
-      // TODO: replace fallback with real API data once at least one MCP server is registered.
-      return FALLBACK_SERVERS;
-    }
-
+  const servers = useMemo<MCPServerDefinition[]>(() => {
+    if (!loadedServers) return [];
     return Object.entries(loadedServers).map(([serverName, metadata]) => {
-      const { consumeOnly: _consumeOnly, dbId: _dbId, ...config } = metadata;
-      const status = deriveConnectionState(connectionStatus?.[serverName]);
-      return {
-        serverName,
-        displayName: config.title || serverName,
-        description: config.description,
-        transport: readTransport(config),
-        // TODO: derive real tool count from useMCPToolsQuery once we surface per-server tool lists here.
-        toolsCount: undefined,
-        status,
-      } satisfies ServerCardProps;
+      const { dbId, consumeOnly, ...config } = metadata;
+      const effectivePermissions = dbId && permissionsMap?.[dbId] ? permissionsMap[dbId] : 1;
+      return { serverName, dbId, effectivePermissions, consumeOnly, config };
     });
-  }, [loadedServers, connectionStatus]);
+  }, [loadedServers, permissionsMap]);
+
+  const hasNoServers = !isLoading && servers.length === 0;
+
+  const openCreate = () => {
+    setEditingServer(null);
+    setIsDialogOpen(true);
+  };
+
+  const openEdit = (server: MCPServerDefinition) => {
+    setEditingServer(server);
+    setIsDialogOpen(true);
+  };
 
   return (
     <div className="flex flex-col gap-6 py-2">
@@ -80,7 +72,7 @@ export default function MCPServerManager() {
           variant="default"
           size="sm"
           disabled={!canCreateMcp}
-          onClick={() => setIsCreateOpen(true)}
+          onClick={openCreate}
           aria-label={localize('com_miron_mcp_add_button')}
         >
           <Plus className="h-4 w-4" aria-hidden="true" />
@@ -92,23 +84,44 @@ export default function MCPServerManager() {
         <div className="rounded-xl border border-dashed border-border-light bg-surface-secondary p-6 text-center text-sm text-text-secondary">
           {localize('com_miron_mcp_loading')}
         </div>
-      ) : servers.length === 0 ? (
+      ) : hasNoServers ? (
         <div className="rounded-xl border border-dashed border-border-light bg-surface-secondary p-6 text-center text-sm text-text-secondary">
           {localize('com_miron_mcp_empty')}
         </div>
       ) : (
         <ul className="flex flex-col gap-3" aria-label={localize('com_miron_mcp_title')}>
-          {servers.map((server) => (
-            <li key={server.serverName}>
-              <ServerCard {...server} />
-            </li>
-          ))}
+          {servers.map((server) => {
+            const isFallback = server.serverName === FALLBACK_SERVER_NAME && !server.dbId;
+            const transport = server.config?.type;
+            const status = deriveConnectionState(connectionStatus?.[server.serverName]);
+            return (
+              <li key={server.serverName}>
+                <ServerCard
+                  serverName={server.serverName}
+                  displayName={server.config?.title || server.serverName}
+                  description={server.config?.description}
+                  transport={transport}
+                  toolsCount={undefined}
+                  status={status}
+                  isEditable={!isFallback && Boolean(server.dbId)}
+                  onEdit={() => openEdit(server)}
+                />
+              </li>
+            );
+          })}
         </ul>
       )}
 
       <p className="text-xs text-text-tertiary">{localize('com_miron_mcp_footer_hint')}</p>
 
-      <MCPServerDialog open={isCreateOpen} onOpenChange={setIsCreateOpen} />
+      <MCPServerDialog
+        open={isDialogOpen}
+        onOpenChange={(open) => {
+          setIsDialogOpen(open);
+          if (!open) setEditingServer(null);
+        }}
+        server={editingServer}
+      />
     </div>
   );
 }
