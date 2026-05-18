@@ -68,9 +68,17 @@ function AuthLayout({
           />
         </div>
       </BlinkAnimation>
+      {/* Miron — tagline under logo */}
+      <div className="mt-2 text-center text-sm text-text-tertiary">
+        {localize('com_miron_auth_tagline')}
+      </div>
       <DisplayError />
       <div className="absolute bottom-0 left-0 md:m-4">
         <ThemeSelector />
+      </div>
+      {/* Miron — MIT attribution footnote on auth screens */}
+      <div className="pointer-events-none absolute bottom-3 left-0 right-0 text-center text-[11px] text-text-tertiary">
+        {localize('com_miron_auth_attribution')}
       </div>
 
       <main className="flex flex-grow items-center justify-center">

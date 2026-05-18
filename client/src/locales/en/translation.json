@@ -1776,5 +1776,7 @@
   "com_miron_about_resources_title": "Resources",
   "com_miron_about_link_repo": "Miron repository",
   "com_miron_about_disclaimer": "© Miron. All trademarks belong to their respective owners. This dialog also satisfies the MIT requirement to preserve the upstream copyright notice.",
-  "com_miron_nav_about": "About Miron"
+  "com_miron_nav_about": "About Miron",
+  "com_miron_auth_tagline": "Corporate AI desktop, on-premise by default.",
+  "com_miron_auth_attribution": "Built on a fork of LibreChat (MIT) by Danny Avila."
 }

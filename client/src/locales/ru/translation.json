@@ -1376,5 +1376,7 @@
   "com_miron_about_resources_title": "Ресурсы",
   "com_miron_about_link_repo": "Репозиторий Miron",
   "com_miron_about_disclaimer": "© Miron. Все торговые марки принадлежат их владельцам. Это окно также выполняет требование MIT-лицензии сохранить копирайт оригинального автора.",
-  "com_miron_nav_about": "О приложении"
+  "com_miron_nav_about": "О приложении",
+  "com_miron_auth_tagline": "Корпоративный AI-агент. Работает в вашем периметре.",
+  "com_miron_auth_attribution": "Построено на форке LibreChat (MIT) автора Danny Avila."
 }
