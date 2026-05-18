@@ -14,7 +14,7 @@ const ICON_MAP = {
 } as const;
 
 interface IntegrationPresetsProps {
-  onSelect: () => void;
+  onSelect: (preset: IntegrationPreset) => void;
   disabled?: boolean;
 }
 
@@ -36,7 +36,7 @@ export default function IntegrationPresets({ onSelect, disabled = false }: Integ
       duration: 12000,
     });
 
-    onSelect();
+    onSelect(preset);
   };
 
   return (

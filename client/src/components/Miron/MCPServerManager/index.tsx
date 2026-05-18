@@ -8,7 +8,9 @@ import type { MCPServerDefinition } from '~/hooks';
 import { useMCPServersQuery } from '~/data-provider';
 import MCPServerDialog from '~/components/SidePanel/MCPBuilder/MCPServerDialog';
 import IntegrationPresets from './IntegrationPresets';
+import type { IntegrationPreset } from './presetData';
 import ServerCard, { deriveConnectionState } from './ServerCard';
+import type { MCPServerFormData } from '~/components/SidePanel/MCPBuilder/MCPServerDialog/hooks/useMCPServerForm';
 
 const FALLBACK_SERVER_NAME = 'bitrix24';
 
@@ -25,6 +27,9 @@ export default function MCPServerManager() {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingServer, setEditingServer] = useState<MCPServerDefinition | null>(null);
+  const [presetDefaults, setPresetDefaults] = useState<Partial<MCPServerFormData> | undefined>(
+    undefined,
+  );
 
   const { data: loadedServers, isLoading } = useMCPServersQuery({ enabled: canUseMcp });
   const { connectionStatus } = useMCPConnectionStatus({ enabled: canUseMcp });
@@ -45,11 +50,24 @@ export default function MCPServerManager() {
 
   const openCreate = () => {
     setEditingServer(null);
+    setPresetDefaults(undefined);
+    setIsDialogOpen(true);
+  };
+
+  const openCreateFromPreset = (preset: IntegrationPreset) => {
+    setEditingServer(null);
+    setPresetDefaults({
+      title: preset.id === 'custom' ? '' : localize(preset.label),
+      description: preset.id === 'custom' ? '' : localize(preset.description),
+      type: preset.transport,
+      url: preset.urlPattern,
+    });
     setIsDialogOpen(true);
   };
 
   const openEdit = (server: MCPServerDefinition) => {
     setEditingServer(server);
+    setPresetDefaults(undefined);
     setIsDialogOpen(true);
   };
 
@@ -65,7 +83,7 @@ export default function MCPServerManager() {
         <p className="text-sm text-text-secondary">{localize('com_miron_mcp_subtitle')}</p>
       </header>
 
-      {canCreateMcp ? <IntegrationPresets onSelect={openCreate} /> : null}
+      {canCreateMcp ? <IntegrationPresets onSelect={openCreateFromPreset} /> : null}
 
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-wide text-text-tertiary">
@@ -121,9 +139,13 @@ export default function MCPServerManager() {
         open={isDialogOpen}
         onOpenChange={(open) => {
           setIsDialogOpen(open);
-          if (!open) setEditingServer(null);
+          if (!open) {
+            setEditingServer(null);
+            setPresetDefaults(undefined);
+          }
         }}
         server={editingServer}
+        presetDefaults={presetDefaults}
       />
     </div>
   );

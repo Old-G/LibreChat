@@ -33,6 +33,8 @@ interface MCPServerDialogProps {
   children?: React.ReactNode;
   triggerRef?: React.MutableRefObject<HTMLDivElement | HTMLButtonElement | null>;
   server?: MCPServerDefinition | null;
+  /** Miron: optional form defaults applied in create mode (used by integration presets). */
+  presetDefaults?: Partial<import('./hooks/useMCPServerForm').MCPServerFormData>;
 }
 
 export default function MCPServerDialog({
@@ -41,6 +43,7 @@ export default function MCPServerDialog({
   children,
   triggerRef,
   server,
+  presetDefaults,
 }: MCPServerDialogProps) {
   const localize = useLocalize();
   const { user } = useAuthContext();
@@ -55,6 +58,7 @@ export default function MCPServerDialog({
   // Form hook
   const formHook = useMCPServerForm({
     server,
+    presetDefaults,
     onSuccess: (serverName, isOAuth) => {
       if (isOAuth) {
         setCreatedServerId(serverName);

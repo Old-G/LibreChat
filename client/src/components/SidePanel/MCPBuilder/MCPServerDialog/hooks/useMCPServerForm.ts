@@ -55,9 +55,20 @@ interface UseMCPServerFormProps {
   server?: MCPServerDefinition | null;
   onSuccess?: (serverName: string, isOAuth: boolean) => void;
   onClose?: () => void;
+  /**
+   * Miron: optional defaults applied only in create mode (when `server` is null/undefined).
+   * Lets the integration-presets feature pre-populate name, url, transport, etc.
+   * for a known Russian B2B integration.
+   */
+  presetDefaults?: Partial<MCPServerFormData>;
 }
 
-export function useMCPServerForm({ server, onSuccess, onClose }: UseMCPServerFormProps) {
+export function useMCPServerForm({
+  server,
+  onSuccess,
+  onClose,
+  presetDefaults,
+}: UseMCPServerFormProps) {
   const localize = useLocalize();
   const { showToast } = useToastContext();
 
@@ -110,7 +121,7 @@ export function useMCPServerForm({ server, onSuccess, onClose }: UseMCPServerFor
       };
     }
 
-    return {
+    const baseDefaults: MCPServerFormData = {
       title: '',
       description: '',
       url: '',
@@ -130,7 +141,18 @@ export function useMCPServerForm({ server, onSuccess, onClose }: UseMCPServerFor
       },
       trust: false,
     };
-  }, [server]);
+
+    // Miron: merge preset defaults (e.g. integration preset) on top of empty form.
+    if (presetDefaults) {
+      return {
+        ...baseDefaults,
+        ...presetDefaults,
+        auth: { ...baseDefaults.auth, ...(presetDefaults.auth || {}) },
+      };
+    }
+
+    return baseDefaults;
+  }, [server, presetDefaults]);
 
   // Form instance
   const methods = useForm<MCPServerFormData>({
