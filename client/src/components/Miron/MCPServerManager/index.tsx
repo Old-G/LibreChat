@@ -7,6 +7,7 @@ import { useLocalize, useHasAccess, useMCPConnectionStatus } from '~/hooks';
 import type { MCPServerDefinition } from '~/hooks';
 import { useMCPServersQuery } from '~/data-provider';
 import MCPServerDialog from '~/components/SidePanel/MCPBuilder/MCPServerDialog';
+import IntegrationPresets from './IntegrationPresets';
 import ServerCard, { deriveConnectionState } from './ServerCard';
 
 const FALLBACK_SERVER_NAME = 'bitrix24';
@@ -63,6 +64,8 @@ export default function MCPServerManager() {
         </div>
         <p className="text-sm text-text-secondary">{localize('com_miron_mcp_subtitle')}</p>
       </header>
+
+      {canCreateMcp ? <IntegrationPresets onSelect={openCreate} /> : null}
 
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-wide text-text-tertiary">
