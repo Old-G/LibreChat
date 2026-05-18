@@ -51,7 +51,16 @@ const AgentAvatar = ({ className = '', avatar = '', agentName, size }: AgentIcon
     );
   }
 
-  return <Feather className={cn(agentName === '' ? 'icon-2xl' : '', className)} size={size} />;
+  // Miron: agent icon fallback shows the Miron M monogram instead of the upstream Feather
+  return (
+    <img
+      src="/assets/logo.svg"
+      alt={agentName || 'Agent'}
+      className={cn(agentName === '' ? 'icon-2xl' : '', 'rounded-md object-cover', className)}
+      style={{ width: size, height: size }}
+      draggable={false}
+    />
+  );
 };
 
 const Bedrock = ({ className = '' }: IconMapProps) => {

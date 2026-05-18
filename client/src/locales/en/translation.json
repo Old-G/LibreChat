@@ -1765,5 +1765,16 @@
   "com_miron_preset_ytracker_auth": "API Key (Bearer) — OAuth token + Org ID header.",
   "com_miron_preset_custom_label": "Custom integration",
   "com_miron_preset_custom_description": "Any MCP server compatible with Streamable HTTPS or SSE transports.",
-  "com_miron_preset_custom_auth": "Depends on your server — None / API Key / OAuth."
+  "com_miron_preset_custom_auth": "Depends on your server — None / API Key / OAuth.",
+  "com_miron_about_title": "About Miron",
+  "com_miron_about_version": "Version {{0}}",
+  "com_miron_about_tagline": "Miron (Mir·On) — corporate AI desktop, on-premise by default. Built for Russian banks, retail, and industry; integrates with the local stack (1C, Bitrix24, VK Teams, Yandex 360, Yandex Tracker, GigaChat, YandexGPT).",
+  "com_miron_about_attribution_title": "Built on open source",
+  "com_miron_about_attribution_text": "Miron is built on a fork of LibreChat (MIT License), created by Danny Avila and contributors. We thank the LibreChat community for the chat foundation.",
+  "com_miron_about_link_librechat": "LibreChat on GitHub",
+  "com_miron_about_link_license": "MIT License text",
+  "com_miron_about_resources_title": "Resources",
+  "com_miron_about_link_repo": "Miron repository",
+  "com_miron_about_disclaimer": "© Miron. All trademarks belong to their respective owners. This dialog also satisfies the MIT requirement to preserve the upstream copyright notice.",
+  "com_miron_nav_about": "About Miron"
 }

@@ -1365,5 +1365,16 @@
   "com_miron_preset_ytracker_auth": "API Key (Bearer) — OAuth-токен + заголовок Org ID.",
   "com_miron_preset_custom_label": "Своя интеграция",
   "com_miron_preset_custom_description": "Любой MCP-сервер, совместимый с транспортом Streamable HTTPS или SSE.",
-  "com_miron_preset_custom_auth": "Зависит от сервера — None / API Key / OAuth."
+  "com_miron_preset_custom_auth": "Зависит от сервера — None / API Key / OAuth.",
+  "com_miron_about_title": "О приложении Miron",
+  "com_miron_about_version": "Версия {{0}}",
+  "com_miron_about_tagline": "Miron (Mir·On) — корпоративный AI-агент, который работает в вашем периметре. Создан для российских банков, ритейла и промышленности; интегрируется с локальным стеком (1С, Битрикс24, VK Teams, Яндекс 360, Яндекс Трекер, GigaChat, YandexGPT).",
+  "com_miron_about_attribution_title": "Построено на open source",
+  "com_miron_about_attribution_text": "Miron построен на форке LibreChat (лицензия MIT), созданного Danny Avila и контрибьюторами. Благодарим сообщество LibreChat за основу чат-платформы.",
+  "com_miron_about_link_librechat": "LibreChat на GitHub",
+  "com_miron_about_link_license": "Текст лицензии MIT",
+  "com_miron_about_resources_title": "Ресурсы",
+  "com_miron_about_link_repo": "Репозиторий Miron",
+  "com_miron_about_disclaimer": "© Miron. Все торговые марки принадлежат их владельцам. Это окно также выполняет требование MIT-лицензии сохранить копирайт оригинального автора.",
+  "com_miron_nav_about": "О приложении"
 }

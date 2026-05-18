@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Feather } from 'lucide-react';
 import { Skeleton } from '@librechat/client';
 import type t from 'librechat-data-provider';
 
@@ -114,9 +113,15 @@ export const renderAgentAvatar = (
     );
   }
 
+  // Miron: default agent avatar is the Miron M monogram (was lucide Feather upstream)
   return (
     <div className={`relative flex items-center justify-center ${sizeClasses[size]} ${className}`}>
-      <Feather className={`text-text-primary ${iconSizeClasses[size]}`} strokeWidth={1.5} />
+      <img
+        src="/assets/logo.svg"
+        alt={`${agent?.name || 'Agent'} avatar`}
+        className={`${iconSizeClasses[size]} select-none rounded-md`}
+        draggable={false}
+      />
     </div>
   );
 };
