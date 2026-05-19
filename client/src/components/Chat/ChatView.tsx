@@ -11,6 +11,8 @@ import { useAddedResponse, useResumeOnLoad, useAdaptiveSSE, useChatHelpers } fro
 import ConversationStarters from './Input/ConversationStarters';
 import { useGetMessagesByConvoId } from '~/data-provider';
 import MessagesView from './Messages/MessagesView';
+import SlashPaletteHost from '~/components/Miron/SlashPalette';
+import UsageFooter from '~/components/Miron/UsageFooter';
 import Presentation from './Presentation';
 import ChatForm from './Input/ChatForm';
 import Landing from './Landing';
@@ -100,11 +102,13 @@ function ChatView({ index = 0 }: { index?: number }) {
                     )}
                   >
                     <ChatForm index={index} />
+                    <UsageFooter />
                     {isLandingPage ? <ConversationStarters /> : <Footer />}
                   </div>
                 </div>
                 {isLandingPage && <Footer />}
               </>
+              <SlashPaletteHost index={index} />
             </div>
           </Presentation>
         </AddedChatContext.Provider>
