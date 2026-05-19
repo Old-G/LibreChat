@@ -1,6 +1,18 @@
+<!-- G1 — Deep Terracotta · linear gradient + subtle top-left highlight -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Miron">
-  <rect width="256" height="256" rx="56" fill="#d87943"/>
-  <ellipse cx="128" cy="128" rx="92" ry="34" stroke="#ffffff" stroke-width="5" fill="none" opacity="0.6"/>
+  <defs>
+    <linearGradient id="g1" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#e07b3d"/>
+      <stop offset="1" stop-color="#9c4a1d"/>
+    </linearGradient>
+    <radialGradient id="g1h" cx="0.28" cy="0.22" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g1)"/>
+  <rect width="256" height="256" rx="56" fill="url(#g1h)"/>
+  <ellipse cx="128" cy="128" rx="92" ry="34" stroke="#ffffff" stroke-width="5" fill="none" opacity="0.65"/>
   <circle cx="128" cy="128" r="68" stroke="#ffffff" stroke-width="11" fill="none"/>
   <circle cx="128" cy="128" r="18" fill="#ffffff"/>
 </svg>
