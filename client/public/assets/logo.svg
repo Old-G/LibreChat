@@ -1,11 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Miron">
-  <rect width="256" height="256" rx="48" fill="#181624"/>
-  <path
-    d="M 64 192 L 64 72 L 128 144 L 192 72 L 192 192"
-    fill="none"
-    stroke="#d87943"
-    stroke-width="20"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
+  <rect width="256" height="256" rx="56" fill="#d87943"/>
+  <ellipse cx="128" cy="128" rx="92" ry="34" stroke="#ffffff" stroke-width="5" fill="none" opacity="0.6"/>
+  <circle cx="128" cy="128" r="68" stroke="#ffffff" stroke-width="11" fill="none"/>
+  <circle cx="128" cy="128" r="18" fill="#ffffff"/>
 </svg>
