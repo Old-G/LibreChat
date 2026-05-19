@@ -1,0 +1,68 @@
+# Miron docker-compose override — example.
+#
+# `docker-compose.override.yml` is gitignored. Merge this example into your local
+# override file (or copy this whole file to `docker-compose.override.yml` on a
+# fresh machine).
+#
+# The first two services (api, searxng) mirror the current `docker-compose.override.yml`
+# on Gleb's machine — kept here as the canonical reference.
+#
+# The third service (gateway-telegram) is NEW in V1 — V1 Telegram gateway.
+# See `services/gateway-telegram/README.md` for the manual setup steps.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: miron-librechat:local
+    environment:
+      - BITRIX24_WEBHOOK_URL=${BITRIX24_WEBHOOK_URL}
+    volumes:
+      - type: bind
+        source: ./librechat.yaml
+        target: /app/librechat.yaml
+      - type: bind
+        source: ../mcp-servers
+        target: /app/mcp-servers
+        read_only: true
+    depends_on:
+      - searxng
+
+  # SearXNG self-hosted for invisible web search (no visible browser window).
+  searxng:
+    image: searxng/searxng:latest
+    container_name: miron-searxng
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ../infra/searxng/settings.yml
+        target: /etc/searxng/settings.yml
+        read_only: true
+    environment:
+      - SEARXNG_BASE_URL=http://searxng:8080/
+
+  # Miron Telegram Gateway — V1.
+  # User DMs the bot → bot calls LibreChat /api/agents/v1/chat/completions → reply.
+  # Whitelist-only. Per-user conversation mapping persisted to a named volume.
+  gateway-telegram:
+    build:
+      context: ../services/gateway-telegram
+      dockerfile: Dockerfile
+    image: miron-gateway-telegram:local
+    container_name: miron-gateway-telegram
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_WHITELIST=${TELEGRAM_WHITELIST}
+      - LIBRECHAT_BASE_URL=http://api:3080
+      - LIBRECHAT_API_KEY=${LIBRECHAT_API_KEY}
+      - LIBRECHAT_AGENT_ID=${LIBRECHAT_AGENT_ID}
+      - STATE_DIR=/data
+    volumes:
+      - gateway_telegram_state:/data
+
+volumes:
+  gateway_telegram_state:
