@@ -133,6 +133,15 @@ html {
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
   --switch-unchecked: 0 0% 58%;
+  /* Miron — sidebar tokens from Darkmatter (used by Miron/Sidebar redesign) */
+  --sidebar: 220 14% 96%;
+  --sidebar-foreground: 220 14% 13%;
+  --sidebar-primary: 20 64% 55%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 0 0% 100%;
+  --sidebar-accent-foreground: 220 14% 13%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 20 64% 55%;
 }
 .dark {
   /* Miron — terracotta accent in dark mode */
@@ -197,6 +206,15 @@ html {
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
   --switch-unchecked: 0 0% 40%;
+  /* Miron — dark mode sidebar tokens (Darkmatter) */
+  --sidebar: 0 0% 11%;
+  --sidebar-foreground: 0 0% 81%;
+  --sidebar-primary: 22 71% 60%;
+  --sidebar-primary-foreground: 249 24% 11%;
+  --sidebar-accent: 0 0% 20%;
+  --sidebar-accent-foreground: 0 0% 81%;
+  --sidebar-border: 0 0% 16%;
+  --sidebar-ring: 22 71% 60%;
 }
 .gizmo {
   --text-primary: var(--gizmo-gray-950);

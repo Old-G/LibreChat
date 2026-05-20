@@ -11,8 +11,9 @@ module.exports = {
   darkMode: ['class'],
   theme: {
     fontFamily: {
-      sans: ['Inter', 'sans-serif'],
-      mono: ['Roboto Mono', 'monospace'],
+      sans: ['Inter', 'ui-sans-serif', 'sans-serif', 'system-ui'],
+      // Source Code Pro per Darkmatter ref; bundled woff2 TODO — falls back to ui-monospace until then
+      mono: ['Source Code Pro', 'ui-monospace', 'monospace'],
     },
     // fontFamily: {
     //   sans: ['Söhne', 'sans-serif'],
@@ -150,6 +151,16 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
         },
       },
       borderRadius: {
