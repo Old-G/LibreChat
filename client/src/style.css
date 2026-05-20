@@ -68,42 +68,46 @@
   --markdown-font-size: 1rem;
 }
 html {
-  --brand-purple: #ab68ff;
-  --presentation: var(--white);
-  --text-primary: var(--gray-800);
-  --text-secondary: var(--gray-600);
-  --text-secondary-alt: var(--gray-500);
-  --text-tertiary: var(--gray-500);
+  /* Miron — all LibreChat-legacy semantic vars rewired to Darkmatter shadcn
+   * tokens so the rest of LibreChat picks up our palette automatically.
+   * The shadcn vars themselves (--primary, --background, --foreground, ...)
+   * are defined further down in this file and in .dark below. */
+  --brand-purple: #d87943;
+  --presentation: hsl(var(--background));
+  --text-primary: hsl(var(--foreground));
+  --text-secondary: hsl(var(--muted-foreground));
+  --text-secondary-alt: hsl(var(--muted-foreground));
+  --text-tertiary: hsl(var(--muted-foreground));
   --text-warning: var(--amber-500);
-  --text-destructive: var(--red-600);
-  --ring-primary: var(--gray-500);
-  --header-primary: var(--white);
-  --header-hover: var(--gray-50);
-  --header-button-hover: var(--gray-50);
-  --surface-active: var(--gray-100);
-  --surface-active-alt: var(--gray-200);
-  --surface-hover: var(--gray-200);
-  --surface-hover-alt: var(--gray-300);
-  --surface-primary: var(--white);
-  --surface-primary-alt: var(--gray-50);
-  --surface-primary-contrast: var(--gray-100);
-  --surface-secondary: var(--gray-50);
-  --surface-secondary-alt: var(--gray-200);
-  --surface-tertiary: var(--gray-100);
-  --surface-tertiary-alt: var(--white);
-  --surface-dialog: var(--white);
-  /* Miron — primary action (Create/Submit buttons) uses terracotta instead of green */
-  --surface-submit: #d87943;
-  --surface-submit-hover: #c46a37;
-  --surface-destructive: var(--red-700);
-  --surface-destructive-hover: var(--red-800);
-  --surface-chat: var(--white);
-  --border-light: var(--gray-200);
-  --border-medium-alt: var(--gray-300);
-  --border-medium: var(--gray-300);
-  --border-heavy: var(--gray-400);
-  --border-xheavy: var(--gray-500);
-  --border-destructive: var(--red-600);
+  --text-destructive: hsl(var(--destructive));
+  --ring-primary: hsl(var(--ring));
+  --header-primary: hsl(var(--background));
+  --header-hover: hsl(var(--muted));
+  --header-button-hover: hsl(var(--accent));
+  --surface-active: hsl(var(--accent));
+  --surface-active-alt: hsl(var(--accent));
+  --surface-hover: hsl(var(--accent));
+  --surface-hover-alt: hsl(var(--accent));
+  --surface-primary: hsl(var(--background));
+  --surface-primary-alt: hsl(var(--muted));
+  --surface-primary-contrast: hsl(var(--muted));
+  --surface-secondary: hsl(var(--muted));
+  --surface-secondary-alt: hsl(var(--accent));
+  --surface-tertiary: hsl(var(--muted));
+  --surface-tertiary-alt: hsl(var(--card));
+  --surface-dialog: hsl(var(--card));
+  /* Miron — primary action (Create/Submit buttons) uses terracotta */
+  --surface-submit: hsl(var(--primary));
+  --surface-submit-hover: hsl(var(--primary) / 0.9);
+  --surface-destructive: hsl(var(--destructive));
+  --surface-destructive-hover: hsl(var(--destructive) / 0.9);
+  --surface-chat: hsl(var(--background));
+  --border-light: hsl(var(--border));
+  --border-medium-alt: hsl(var(--border));
+  --border-medium: hsl(var(--border));
+  --border-heavy: hsl(var(--input));
+  --border-xheavy: hsl(var(--input));
+  --border-destructive: hsl(var(--destructive));
   /* These are test styles */
 
   --background: 0 0% 100%;
@@ -144,42 +148,41 @@ html {
   --sidebar-ring: 20 64% 55%;
 }
 .dark {
-  /* Miron — terracotta accent in dark mode */
+  /* Miron — all LibreChat-legacy semantic vars rewired to Darkmatter (dark) */
   --brand-purple: #e89656;
-  --presentation: var(--gray-800);
-  --text-primary: var(--gray-100);
-  --text-secondary: var(--gray-300);
-  --text-secondary-alt: var(--gray-400);
-  --text-tertiary: var(--gray-500);
+  --presentation: hsl(var(--background));
+  --text-primary: hsl(var(--foreground));
+  --text-secondary: hsl(var(--muted-foreground));
+  --text-secondary-alt: hsl(var(--muted-foreground));
+  --text-tertiary: hsl(var(--muted-foreground));
   --text-warning: var(--amber-500);
-  --text-destructive: var(--red-600);
-  --header-primary: var(--gray-700);
-  --header-hover: var(--gray-600);
-  --header-button-hover: var(--gray-700);
-  --surface-active: var(--gray-500);
-  --surface-active-alt: var(--gray-700);
-  --surface-hover: var(--gray-600);
-  --surface-hover-alt: var(--gray-600);
-  --surface-primary: var(--gray-900);
-  --surface-primary-alt: var(--gray-850);
-  --surface-primary-contrast: var(--gray-850);
-  --surface-secondary: var(--gray-800);
-  --surface-secondary-alt: var(--gray-800);
-  --surface-tertiary: var(--gray-700);
-  --surface-tertiary-alt: var(--gray-700);
-  --surface-dialog: var(--gray-850);
-  /* Miron — terracotta primary action in dark mode */
-  --surface-submit: #d87943;
-  --surface-submit-hover: #c46a37;
-  --surface-destructive: var(--red-800);
-  --surface-destructive-hover: var(--red-900);
-  --surface-chat: var(--gray-700);
-  --border-light: var(--gray-700);
-  --border-medium-alt: var(--gray-600);
-  --border-medium: var(--gray-600);
-  --border-heavy: var(--gray-500);
-  --border-xheavy: var(--gray-400);
-  --border-destructive: var(--red-500);
+  --text-destructive: hsl(var(--destructive));
+  --header-primary: hsl(var(--background));
+  --header-hover: hsl(var(--muted));
+  --header-button-hover: hsl(var(--accent));
+  --surface-active: hsl(var(--accent));
+  --surface-active-alt: hsl(var(--accent));
+  --surface-hover: hsl(var(--accent));
+  --surface-hover-alt: hsl(var(--accent));
+  --surface-primary: hsl(var(--background));
+  --surface-primary-alt: hsl(var(--muted));
+  --surface-primary-contrast: hsl(var(--muted));
+  --surface-secondary: hsl(var(--muted));
+  --surface-secondary-alt: hsl(var(--accent));
+  --surface-tertiary: hsl(var(--muted));
+  --surface-tertiary-alt: hsl(var(--card));
+  --surface-dialog: hsl(var(--card));
+  --surface-submit: hsl(var(--primary));
+  --surface-submit-hover: hsl(var(--primary) / 0.9);
+  --surface-destructive: hsl(var(--destructive));
+  --surface-destructive-hover: hsl(var(--destructive) / 0.9);
+  --surface-chat: hsl(var(--background));
+  --border-light: hsl(var(--border));
+  --border-medium-alt: hsl(var(--border));
+  --border-medium: hsl(var(--border));
+  --border-heavy: hsl(var(--input));
+  --border-xheavy: hsl(var(--input));
+  --border-destructive: hsl(var(--destructive));
   /* These are test styles */
 
   /* Miron — dark mode Darkmatter palette */
